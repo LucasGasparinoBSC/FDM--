@@ -1,0 +1,15 @@
+project(FDMpp)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/*.cpp)
+set(HEADER_DIR ${CMAKE_CURRENT_LIST_DIR})
+file(GLOB_RECURSE HEADERS ${HEADER_DIR}/*.h)
+
+include_directories(${HEADER_DIR} ${Grid_INCLUDE_DIRS})
+
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+target_link_libraries(${PROJECT_NAME} Grid)
+
+set(${PROJECT_NAME}_INCLUDE_DIRS ${HEADER_DIR} CACHE INTERNAL "${PROJECT_NAME}: Include Directories" FORCE)
+
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(FILES ${HEADER_FILES} DESTINATION include)
