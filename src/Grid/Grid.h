@@ -15,6 +15,7 @@ class Grid
         uint64_t nY;
         uint64_t nZ;
         uint64_t **a2ijk;
+        uint64_t ***ijk2a;
         double xMin;
         double xMax;
         double yMin;
@@ -27,6 +28,8 @@ class Grid
         double *xCoord;
         double *yCoord;
         double *zCoord;
+        void create_a2ijk();
+        void create_ijk2a();
     public:
         // Constructor
         Grid();                                                                // Default constructor
@@ -39,6 +42,7 @@ class Grid
         uint64_t get_nY();
         uint64_t get_nZ();
         uint64_t **get_a2ijk();
+        uint64_t ***get_ijk2a();
         double get_hx();
         double get_hy();
         double get_hz();

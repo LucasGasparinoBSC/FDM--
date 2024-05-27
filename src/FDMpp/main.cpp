@@ -26,5 +26,32 @@ int main(int argc, const char** argv)
     // Create the grid
     Grid g(nx, ny, nz, xmin, xmax);
 
+    // Print the a2ijk info
+    uint64_t **a2ijk = g.get_a2ijk();
+
+    for (uint64_t i = 0; i < g.get_nPoints(); i++)
+    {
+        std::cout << "Point " << i << ": ";
+        for (uint64_t j = 0; j < 3; j++)
+        {
+            std::cout << a2ijk[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    // Print the ijk2a info
+    uint64_t ***ijk2a = g.get_ijk2a();
+
+    for (uint64_t k = 0; k < nz; k++)
+    {
+        for (uint64_t j = 0; j < ny; j++)
+        {
+            for (uint64_t i = 0; i < nx; i++)
+            {
+                std::cout << "Point (" << i << ", " << j << ", " << k << "): " << ijk2a[i][j][k] << std::endl;
+            }
+        }
+    }
+
     return 0;
 }
