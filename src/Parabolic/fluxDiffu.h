@@ -6,6 +6,6 @@
 #include <cstdint>
 #include <cstdlib>
 
-void central2ndOrder(uint64_t nPoints, uint64_t nx, uint64_t ***ijk2a, float cfl_d, float *u, float *R);
+void central2ndOrder(bool isPeriodic, uint64_t nPoints, uint64_t nx, uint64_t ***ijk2a, float h, float mu, float *u, float *R);
 
 #endif // !FLUX_DIFFU_H_

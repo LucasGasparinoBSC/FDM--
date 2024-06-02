@@ -50,13 +50,9 @@ void Grid::create_ijk2a()
     }
 }
 
-Grid::Grid() : nX(0), nY(0), nZ(0), xMin(0.0), xMax(0.0), yMin(0.0), yMax(0.0), zMin(0.0), zMax(0.0)
+Grid::Grid(bool flag, uint64_t nX, uint64_t nY, uint64_t nZ, double xmin, double xmax) : nX(nX), nY(nY), nZ(nZ)
 {
-    nPoints = nX * nY * nZ;
-}
-
-Grid::Grid(uint64_t nX, uint64_t nY, uint64_t nZ, double xmin, double xmax) : nX(nX), nY(nY), nZ(nZ)
-{
+    isPeriodic = flag;
     nPoints = nX * nY * nZ;
     xMin = xmin;
     yMin = xmin;

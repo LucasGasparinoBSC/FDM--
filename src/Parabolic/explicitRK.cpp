@@ -1,13 +1,15 @@
 #include "explicitRK.h"
 
+void computeDt(float mu, float h, float cfl_d, float dt)
+{
+    // Compute the time step
+    dt = cfl_d * (h*h) / mu;
+}
+
 // Implementation of the classic Runge-Kutta 4th order method for parabolic scalar
-void classicRK4(uint64_t nStep, uint64_t nPoints, float *u, float dt, float h, float cfl_d)
+void classicRK4(bool isPeriodic, uint64_t nStep, uint64_t nPoints, uint64_t nx, uint64_t ***ijk2a, float *u, float cfl_d, float h, float mu)
 {
     // Initialize the registers
-    float *u_tmp;
-    float *R;
-    float *Rsum;
-
     float *u_tmp = new float[nPoints];
     float *R = new float[nPoints];
     float *Rsum = new float[nPoints];
@@ -16,13 +18,16 @@ void classicRK4(uint64_t nStep, uint64_t nPoints, float *u, float dt, float h, f
     float a[4] = {0.0f, 0.5f, 0.5f, 1.0f};
     float b[4] = {1.0f / 6.0f, 1.0f / 3.0f, 1.0f / 3.0f, 1.0f / 6.0f};
 
+    // Initialize dt
+    float dt;
+    computeDt(mu, h, cfl_d, dt);
+
     // Compute the Runge-Kutta 4th order method
     for (uint64_t iStep = 0; iStep < nStep; iStep++)
     {
         // Zero the registers
         for (uint64_t index = 0; index < nPoints; index++)
         {
-            u_tmp[index] = 0.0f;
             R[index] = 0.0f;
             Rsum[index] = 0.0f;
         }
@@ -40,7 +45,7 @@ void classicRK4(uint64_t nStep, uint64_t nPoints, float *u, float dt, float h, f
             }
 
             // Compute R(u_tmp)
-            // TODO: Implement the computation of R(u_tmp)
+            central2ndOrder(isPeriodic, nPoints, nx, ijk2a, h, mu, u_tmp, R);
 
             // Accumulate the new residual
             for (uint64_t index = 0; index < nPoints; index++)
@@ -54,9 +59,6 @@ void classicRK4(uint64_t nStep, uint64_t nPoints, float *u, float dt, float h, f
         {
             u[index] += dt * Rsum[index];
         }
-
-        // Update dt
-        // TODO: Implement the computation of the new dt
     }
 
     // Free the registers

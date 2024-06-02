@@ -10,6 +10,7 @@ class Grid
 {
     private:
         const uint64_t nDime = 3;
+        bool isPeriodic;
         uint64_t nPoints;
         uint64_t nX;
         uint64_t nY;
@@ -32,8 +33,7 @@ class Grid
         void create_ijk2a();
     public:
         // Constructor
-        Grid();                                                                // Default constructor
-        Grid(uint64_t nX, uint64_t nY, uint64_t nZ, double xmin, double xmax); // Parameterized constructor
+        Grid(bool flag, uint64_t nX, uint64_t nY, uint64_t nZ, double xmin, double xmax); // Parameterized constructor
         // Destructor
         ~Grid();
         // Getters

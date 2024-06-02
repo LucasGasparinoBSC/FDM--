@@ -23,8 +23,11 @@ int main(int argc, const char** argv)
     const double xmin = 0.0;
     const double xmax = TWO_PI;
 
+    // Case is periodic
+    bool flag = true;
+
     // Create the grid
-    Grid g(nx, ny, nz, xmin, xmax);
+    Grid g(flag, nx, ny, nz, xmin, xmax);
 
     // Print the a2ijk info
     uint64_t **a2ijk = g.get_a2ijk();
